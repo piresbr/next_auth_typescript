@@ -1,5 +1,5 @@
 {
-  "name": "auth_mongo",
+  "name": "next_auth_mongo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
