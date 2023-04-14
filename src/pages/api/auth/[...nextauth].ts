@@ -1,13 +1,14 @@
-import NextAuth from "next-auth";
+import NextAuth, { Account, Profile, User } from "next-auth";
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import Auth0Provider from "next-auth/providers/auth0";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/mongodb";
+import { JWT } from "next-auth/jwt";
+import { Adapter, AdapterUser } from "next-auth/adapters";
 
 export default NextAuth({
-  adapter: MongoDBAdapter(clientPromise),
   providers: [
     FacebookProvider({
       clientId: process.env.FACEBOOK_ID as string,
@@ -27,4 +28,41 @@ export default NextAuth({
       issuer: process.env.AUTH0_ISSUER_BASE_URL as string,
     }),
   ],
+  adapter: MongoDBAdapter(clientPromise),
+
+  //save session on cookies
+  secret: process.env.NEXTAUTH_SECRET as string,
+  session: {
+    strategy: "jwt", //or save on "database" mongo
+  },
+  callbacks: {
+    async jwt({
+      token,
+      user,
+      account,
+      profile,
+      isNewUser,
+    }: {
+      token: JWT;
+      user?: User | Adapter | undefined;
+      account?: Account | null | undefined;
+      profile?: Profile | undefined;
+      isNewUser?: boolean | undefined;
+    }) {
+      //se o usuario existir, pega o token de account e atribui em um novo campo que se chama token em provider.
+      // Depois de atribuir, eu retorno esse token e utilizo na session caso um usuario exista
+      if (user) {
+        console.log("aqui user", user);
+        token.provider = account?.provider;
+        console.log(token.provider, account?.provider);
+      }
+      return token;
+    },
+    async session({ session, token }: { session: any; token: JWT }) {
+      if (session.user) {
+        session.user.provider = token.provider;
+      }
+      return session;
+    },
+  },
 });
