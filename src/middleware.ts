@@ -7,13 +7,19 @@ export async function middleware(req: NextRequest) {
   const session = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET as string,
-    secureCookie: process.env.NODE_ENV !== "production",
+    secureCookie: process.env.NODE_ENV === "production",
   });
 
   if (pathname == "/") {
-    return NextResponse.redirect(`${process.env.NEXTAUTH_URL}/auth`);
+    if (!session) {
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_URL}/api/auth/signin`
+      );
+    }
   }
-  if (pathname == "/auth") {
-    if (session) return NextResponse.redirect(`${origin}`);
+  if (pathname == "/auth/signin") {
+    if (session) {
+      return NextResponse.redirect(`${origin}`);
+    }
   }
 }
