@@ -52,9 +52,9 @@ export default NextAuth({
       //se o usuario existir, pega o token de account e atribui em um novo campo que se chama token em provider.
       // Depois de atribuir, eu retorno esse token e utilizo na session caso um usuario exista
       if (user) {
-        console.log("aqui user", user);
+        // console.log("aqui user", user);
         token.provider = account?.provider;
-        console.log(token.provider, account?.provider);
+        // console.log(token.provider, account?.provider);
       }
       return token;
     },

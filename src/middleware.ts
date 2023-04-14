@@ -10,16 +10,34 @@ export async function middleware(req: NextRequest) {
     secureCookie: process.env.NODE_ENV === "production",
   });
 
-  if (pathname == "/") {
-    if (!session) {
-      return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_URL}/api/auth/signin`
-      );
+  //bloqueando o acesso a api diretamente e exibindo mensagem de não autorizado
+  if (pathname === "/api" || pathname === "/api/auth") {
+    if (
+      !req.headers
+        .get("referer")
+        ?.includes(process.env.NEXT_PUBLIC_URL as string)
+    ) {
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_URL}/auth`);
     }
   }
-  if (pathname == "/auth/signin") {
+
+  //se algumas dessas rotas for acionada, ele faz o redirect para a auth padrão
+  if (pathname == "/" || pathname === "/api/auth/signout") {
+    if (!session) {
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_URL}/auth`);
+    }
+  }
+
+  //se for autenticado, local e ve as informações
+  if (pathname == "/auth") {
     if (session) {
       return NextResponse.redirect(`${origin}`);
     }
   }
+
+  return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/((?!_next|fonts|examples|svg|[\\w-]+\\.\\w+).*)"],
+};
