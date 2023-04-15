@@ -1,3 +1,4 @@
+import Register from "@/components/forms/Register";
 import Link from "next/link";
 
 export default function auth() {
@@ -17,6 +18,7 @@ export default function auth() {
                   Clique aqui para entrar
                 </Link>
               </p>
+              <Register />
             </div>
           </div>
         </div>
