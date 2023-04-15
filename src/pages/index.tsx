@@ -4,6 +4,7 @@ import { useSession, signIn, signOut, getSession } from "next-auth/react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { SiUdemy } from "react-icons/si";
 import { AiFillGithub } from "react-icons/ai";
+
 export default function Home() {
   const { data: session } = useSession();
   const text1: string =
