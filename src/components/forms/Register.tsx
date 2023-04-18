@@ -1,7 +1,8 @@
 import * as React from "react";
 import Input from "../inputs/Input";
-import { CiUser } from "react-icons/ci";
+import { CiUser, CiLock } from "react-icons/ci";
 import { FiMail } from "react-icons/fi";
+import { BsTelephone } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,35 +10,45 @@ import validator from "validator";
 
 interface IRegisterProps {}
 
-const FormSchema = z.object({
-  first_name: z
-    .string()
-    .min(2, "Primeiro nome deve ser maior que 2 caracteres")
-    .max(50, "O primeiro nome deve ter no máximo 50 caracteres")
-    .regex(
-      new RegExp("^[a-zA-Z]+$"),
-      "O nome não pode ter caracteres especiais"
-    ),
-  last_name: z
-    .string()
-    .min(2, "Sobrenome deve ser maior que 2 caracteres")
-    .max(70, "O sobrenome deve ter no máximo 70 caracteres")
-    .regex(
-      new RegExp("^[a-zA-Z]+$"),
-      "O nome não pode ter caracteres especiais"
-    ),
-  email: z.string().email("Email inválido"),
-  phone: z
-    .string()
-    .startsWith(
-      "+55",
-      "Insira o seu código de discagem no ínicio do telefone, exemplo: +55"
-    )
-    .min(13, "O número precisa estar no formato +55(99)9999-9999")
-    .refine(validator.isMobilePhone, {
-      message: "Insira um número de telefone válido",
-    }),
-});
+const FormSchema = z
+  .object({
+    first_name: z
+      .string()
+      .min(2, "Primeiro nome deve ser maior que 2 caracteres")
+      .max(50, "O primeiro nome deve ter no máximo 50 caracteres")
+      .regex(
+        new RegExp("^[a-zA-Z]+$"),
+        "O nome não pode ter caracteres especiais"
+      ),
+    last_name: z
+      .string()
+      .min(2, "Sobrenome deve ser maior que 2 caracteres")
+      .max(70, "O sobrenome deve ter no máximo 70 caracteres")
+      .regex(
+        new RegExp("^[a-zA-Z]+$"),
+        "O nome não pode ter caracteres especiais"
+      ),
+    email: z.string().email("Email inválido"),
+    phone: z
+      .string()
+      .startsWith(
+        "+55",
+        "Insira o seu código de discagem no ínicio do telefone, exemplo: +55"
+      )
+      .min(13, "O número precisa estar no formato +55(99)9999-9999")
+      .refine(validator.isMobilePhone, {
+        message: "Insira um número de telefone válido",
+      }),
+    password: z
+      .string()
+      .min(6, "A senha tem que ter no mínimo 6 caracteres")
+      .max(52, "A senha tem que ter no mínimo 6 caracteres"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "As senhas não são iguais. Redigite por favor!",
+    path: ["confirmPassword"],
+  });
 
 type FormSchemaProps = z.infer<typeof FormSchema>;
 
@@ -94,9 +105,31 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
           type="text"
           className="col-span-1 sm:col-span-2 relative"
           placeholder="+55(17) 99999-9999"
-          icon={<FiMail />}
+          icon={<BsTelephone />}
           register={register}
           error={errors?.phone?.message}
+          disabled={isSubmitting}
+        />
+        <Input
+          name="password"
+          label="Senha"
+          type="password"
+          className="col-span-1 sm:col-span-2 relative"
+          placeholder="Digite sua senha"
+          icon={<CiLock />}
+          register={register}
+          error={errors?.password?.message}
+          disabled={isSubmitting}
+        />
+        <Input
+          name="confirmPassword"
+          label="Confirmação de senha"
+          type="password"
+          className="col-span-1 sm:col-span-2 relative"
+          placeholder="Digite novamente sua senha"
+          icon={<CiLock />}
+          register={register}
+          error={errors?.confirmPassword?.message}
           disabled={isSubmitting}
         />
         <button
