@@ -30,6 +30,7 @@
     "tailwindcss": "3.3.1",
     "typescript": "5.0.4",
     "validator": "^13.9.0",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "zxcvbn": "^4.4.2"
   }
 }
