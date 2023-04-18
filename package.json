@@ -32,5 +32,8 @@
     "validator": "^13.9.0",
     "zod": "^3.21.4",
     "zxcvbn": "^4.4.2"
+  },
+  "devDependencies": {
+    "@types/zxcvbn": "^4.4.1"
   }
 }
