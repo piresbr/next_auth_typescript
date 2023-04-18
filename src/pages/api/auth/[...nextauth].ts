@@ -53,6 +53,7 @@ export default NextAuth({
       // Depois de atribuir, eu retorno esse token e utilizo na session caso um usuario exista
       if (user) {
         // console.log("aqui user", user);
+        // console.log(account);
         token.provider = account?.provider;
         // console.log(token.provider, account?.provider);
       }
@@ -61,6 +62,7 @@ export default NextAuth({
     async session({ session, token }: { session: any; token: JWT }) {
       if (session.user) {
         session.user.provider = token.provider;
+        // console.log(session.user);
       }
       return session;
     },
