@@ -8,7 +8,7 @@ export default function auth() {
         {/*----Form----*/}
         <div className="w-full sm:w5/6 md:w-2/3 lg:w1/2 xl:w-1/3 2xl:w-1/3 h-full bg-white flex flex-col items-center justify-center rounded-md py-6">
           <div className="w-full flex items-center justify-between px-12">
-            <div className="w-full px-12 py-4">
+            <div className="w-full p-6">
               <h2 className="text-center text-2xl font-bold tracking-wide text-gray-800">
                 Registre-se
               </h2>

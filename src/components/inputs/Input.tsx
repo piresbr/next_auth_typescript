@@ -50,7 +50,9 @@ const Input: React.FunctionComponent<IInputProps> = (props) => {
         </div>
       )}
       {error && (
-        <p className="text-[#ED4337] max-w-[calc(100%_-_28px)]">{error}</p>
+        <p className="text-[#ED4337] max-w-[calc(100%_-_28px)] text-xs">
+          {error}
+        </p>
       )}
     </div>
   );

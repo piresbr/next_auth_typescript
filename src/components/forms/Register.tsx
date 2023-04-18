@@ -8,6 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
+import Link from "next/link";
 
 interface IRegisterProps {}
 
@@ -45,6 +46,11 @@ const FormSchema = z
       .min(6, "A senha tem que ter no mínimo 6 caracteres")
       .max(52, "A senha tem que ter no mínimo 6 caracteres"),
     confirmPassword: z.string(),
+    accept: z.literal(true, {
+      errorMap: () => ({
+        message: "Concorde com todos os termos e política de privacidade. ",
+      }),
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "As senhas não são iguais. Redigite por favor!",
@@ -70,6 +76,7 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
     let password = watch(data).password;
     return zxcvbn(password ? password : "").score;
   };
+
   // console.log(zxcvbn("asas123!!@@@asda44AAAsdasq!@2(")); //check score password
 
   React.useEffect(() => {
@@ -164,6 +171,34 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
           error={errors?.confirmPassword?.message}
           disabled={isSubmitting}
         />
+
+        <div className="col-span-1 sm:col-span-2 relative flex flex-col items-center">
+          <div className="w-full">
+            <input
+              type="checkbox"
+              id="accept"
+              className="focus:ring-1 rounded"
+              {...register("accept")}
+            />
+            <label htmlFor="accept" className="ml-1 text-gray-700">
+              Eu aceito os
+              <Link
+                href=""
+                target="_blank"
+                className="text-blue-600 hover:text-blue-400 ml-1"
+              >
+                termos e a política de privacidade
+              </Link>
+            </label>
+          </div>
+
+          {errors?.accept && (
+            <p className="text-[#ED4337] p-0 mx-0 text-xs w-full">
+              {errors?.accept.message}
+            </p>
+          )}
+        </div>
+
         <button
           type="submit"
           className="col-span-1 sm:col-span-2 bg-blue-500 text-white p-2 rounded hover:bg-blue-700 hover:transition-all hover:duration-200"
