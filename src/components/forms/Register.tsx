@@ -144,7 +144,7 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
         />
 
         {watch().password?.length > 0 && (
-          <div className="flex mt-2">
+          <div className="flex mt-2 col-span-1 sm:col-span-2">
             {Array.from(Array(5).keys()).map((span, i) => (
               <span className="w-1/5 px-1" key={i}>
                 <div
