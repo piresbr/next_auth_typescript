@@ -5,6 +5,7 @@ import { FiMail } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import validator from "validator";
 
 interface IRegisterProps {}
 
@@ -26,6 +27,16 @@ const FormSchema = z.object({
       "O nome não pode ter caracteres especiais"
     ),
   email: z.string().email("Email inválido"),
+  phone: z
+    .string()
+    .startsWith(
+      "+55",
+      "Insira o seu código de discagem no ínicio do telefone, exemplo: +55"
+    )
+    .min(13, "O número precisa estar no formato +55(99)9999-9999")
+    .refine(validator.isMobilePhone, {
+      message: "Insira um número de telefone válido",
+    }),
 });
 
 type FormSchemaProps = z.infer<typeof FormSchema>;
@@ -75,6 +86,17 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
           icon={<FiMail />}
           register={register}
           error={errors?.email?.message}
+          disabled={isSubmitting}
+        />
+        <Input
+          name="phone"
+          label="Telefone"
+          type="text"
+          className="col-span-1 sm:col-span-2 relative"
+          placeholder="+55(17) 99999-9999"
+          icon={<FiMail />}
+          register={register}
+          error={errors?.phone?.message}
           disabled={isSubmitting}
         />
         <button
