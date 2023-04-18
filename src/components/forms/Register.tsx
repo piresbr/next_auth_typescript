@@ -1,7 +1,7 @@
 import * as React from "react";
 import Input from "../inputs/Input";
 import { CiUser, CiLock } from "react-icons/ci";
-import { FiMail } from "react-icons/fi";
+import { FiLock, FiMail } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
 import Link from "next/link";
+import RegisterSubmit from "../buttons/RegisterSubmit";
 
 interface IRegisterProps {}
 
@@ -198,14 +199,15 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
             </p>
           )}
         </div>
-
-        <button
-          type="submit"
-          className="col-span-1 sm:col-span-2 bg-blue-500 text-white p-2 rounded hover:bg-blue-700 hover:transition-all hover:duration-200"
-        >
-          Cadastrar
-        </button>
       </div>
+      <RegisterSubmit
+        type="submit"
+        text="Registrar"
+        slide_text="Registre-se com segurança"
+        // className=" hover:bg-blue-700 hover:transition-all hover:duration-200 overflow-hidden group"
+        icon={<FiLock />}
+        disabled={isSubmitting}
+      />
     </form>
   );
 };
