@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.1.0",
     "@next-auth/mongodb-adapter": "^1.1.1",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
