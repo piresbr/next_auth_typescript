@@ -1,3 +1,4 @@
+//autenticação nativa
 import connectDb from "@/utils/connectDb";
 import type { NextApiRequest, NextApiResponse } from "next";
 import validator from "validator";
