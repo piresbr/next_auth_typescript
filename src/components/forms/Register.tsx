@@ -11,7 +11,8 @@ import zxcvbn from "zxcvbn";
 import Link from "next/link";
 import RegisterSubmit from "../buttons/RegisterSubmit";
 import axios from "axios";
-import { toast } from "react-toastify/dist/core";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface IRegisterProps {}
 

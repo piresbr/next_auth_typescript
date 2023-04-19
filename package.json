@@ -38,6 +38,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/zxcvbn": "^4.4.1"
   }
 }
