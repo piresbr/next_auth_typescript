@@ -3,13 +3,15 @@ import Input from "../inputs/Input";
 import { CiUser, CiLock } from "react-icons/ci";
 import { FiLock, FiMail } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
 import Link from "next/link";
 import RegisterSubmit from "../buttons/RegisterSubmit";
+import axios from "axios";
+import { toast } from "react-toastify/dist/core";
 
 interface IRegisterProps {}
 
@@ -71,7 +73,36 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
   } = useForm<FormSchemaProps>({
     resolver: zodResolver(FormSchema),
   });
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit: SubmitHandler<FormSchemaProps> = async (values) => {
+    try {
+      const { data } = await axios.post("/api/auth/signup", { ...values });
+
+      toast.success(data.message, {
+        position: "top-center",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      return values;
+    } catch (error: any) {
+      toast.error(error.response.data.message, {
+        position: "top-center",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return false;
+    }
+  };
 
   const validatePasswordStrength = (data: any) => {
     let password = watch(data).password;
