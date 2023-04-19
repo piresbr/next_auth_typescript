@@ -1,3 +1,4 @@
+//função exportada para conectar ao banco de dados
 import mongoose from "mongoose";
 
 // https://stackoverflow.com/questions/75206870/nextjs-mongoose-mongo-atlas-multiple-connections-even-with-caching

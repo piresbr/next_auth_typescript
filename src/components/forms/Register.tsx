@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 interface IRegisterProps {}
 
+//validação de cada campo do formulário, warnings de cada campo
 const FormSchema = z
   .object({
     first_name: z
@@ -61,6 +62,7 @@ const FormSchema = z
     path: ["confirmPassword"],
   });
 
+//criação desse type em referencia aos dados inseridos nos campos, depois ele usa no resolver do submit quando clicado.
 type FormSchemaProps = z.infer<typeof FormSchema>;
 
 const Register: React.FunctionComponent<IRegisterProps> = (props) => {
@@ -105,6 +107,7 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
     }
   };
 
+  //força da senha
   const validatePasswordStrength = (data: any) => {
     let password = watch(data).password;
     return zxcvbn(password ? password : "").score;
@@ -112,6 +115,7 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
 
   // console.log(zxcvbn("asas123!!@@@asda44AAAsdasq!@2(")); //check score password
 
+  //toda vez que a senha é digitado o estado é renderizado novamente
   React.useEffect(() => {
     setPasswordScore(validatePasswordStrength);
   }, [watch().password]);
@@ -175,6 +179,7 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
           disabled={isSubmitting}
         />
 
+        {/* medidor força da senha */}
         {watch().password?.length > 0 && (
           <div className="flex mt-2 col-span-1 sm:col-span-2">
             {Array.from(Array(5).keys()).map((span, i) => (

@@ -1,4 +1,5 @@
 //autenticação nativa
+//esse modelo serve para criação de tipos ao registrar o usuario no banco de dados
 import mongoose from "mongoose";
 mongoose.set("strictQuery", true);
 

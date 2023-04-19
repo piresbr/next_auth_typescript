@@ -1,3 +1,4 @@
+//tipagem para ser usada no ...next-auth (evitar erros na biblioteca para campos não padrão)
 import NextAuth from "next-auth";
 
 declare module "next-auth" {
