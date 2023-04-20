@@ -9,24 +9,27 @@ export default function activate({ token }: { token: string }) {
   const [success, setSucess] = useState("");
 
   useEffect(() => {
-    activateAccount(token);
+    activateAccount();
   }, [token]);
-  const activateAccount = async (token: string) => {
+  const activateAccount = async () => {
     try {
+      //esse token vem na rota de api/auth/signup
+      //quando entrar na rota "activate/asdasdknas", ele insire um token no arquivo do put abaixo e seta um sucesso
+
       const { data } = await axios.put("/api/auth/activate", { token });
-      setSucess(data);
-    } catch (error) {
-      setError((error as Error)?.message);
+      setSucess(data.message);
+    } catch (error: any) {
+      setError((error?.response?.data as Error).message);
     }
   };
 
   return (
-    <div className="bg-black h-screen flex items-center justify-center text-center">
+    <div className="h-screen bg-slate-100 flex items-center justify-center text-center">
       {error && (
-        <div>
-          <p className="text-red-500 text-xl font-bold">{error}</p>
+        <div className="bg-white p-8 rounded-md">
+          <p className="text-green-600 text-xl font-bold">{error}</p>
           <button
-            className="mt-4 bg-blue-500 text-white hover:bg-blue-700 text-md uppercase font-bold px-8 py-2 rounded-md sm:mr-2 mb-1 ease-linear transition-all duration-150"
+            className="mt-4 bg-blue-500 text-white hover:bg-blue-600 text-md uppercase font-bold px-8 py-2 rounded-md sm:mr-2 mb-1 ease-linear transition-all duration-150"
             onClick={() => signIn()}
           >
             Faça login em vez disso
@@ -34,8 +37,8 @@ export default function activate({ token }: { token: string }) {
         </div>
       )}
       {success && (
-        <div>
-          <p className="text-green-500 text-xl font-bold">{success}</p>
+        <div className="bg-white p-8 rounded-md">
+          <p className="text-red-500 text-xl font-bold">{success}</p>
           <button
             className="mt-4 bg-blue-500 text-white hover:bg-blue-700 text-md uppercase font-bold px-8 py-2 rounded-md sm:mr-2 mb-1 ease-linear transition-all duration-150"
             onClick={() => signIn()}
