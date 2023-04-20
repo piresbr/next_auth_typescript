@@ -15,8 +15,10 @@ export default async function handler(
 ) {
   try {
     await connectDb();
+
     //aqui eu recebo o token no corpo da requisição (query). Essa requisição vem do [token].tsx
     //depois de receber o token, eu verifico ele com a senha colocada no env e insiro o true no id do usuario que fez a verificação.
+
     const { token } = req.body;
     const userToken = jwt.verify(
       token,

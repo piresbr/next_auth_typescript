@@ -3,6 +3,10 @@ import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import Auth0Provider from "next-auth/providers/auth0";
+import CredentialsProvider from "next-auth/providers/credentials";
+import connectDb from "@/utils/connectDb";
+import UserModal from "@/models/User";
+import bcrypt from "bcryptjs";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/mongodb";
 import { JWT } from "next-auth/jwt";
@@ -10,6 +14,34 @@ import { Adapter, AdapterUser } from "next-auth/adapters";
 
 export default NextAuth({
   providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: {
+          label: "Name",
+          type: "text",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+        },
+      },
+      async authorize(credentials) {
+        await connectDb();
+        const user = await UserModal.findOne({ email: credentials!.email });
+        if (!user) {
+          throw new Error("Email não encontrado. ");
+        }
+        const isPasswordCorrect = await bcrypt.compare(
+          credentials!.password,
+          user.password
+        );
+        if (!isPasswordCorrect) {
+          throw new Error("Senha incorreta. ");
+        }
+        return user;
+      },
+    }),
     FacebookProvider({
       clientId: process.env.FACEBOOK_ID as string,
       clientSecret: process.env.FACEBOOK_SECRET as string,
@@ -34,6 +66,9 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET as string,
   session: {
     strategy: "jwt", //or save on "database" mongo
+  },
+  pages: {
+    signIn: "/auth",
   },
   callbacks: {
     async jwt({

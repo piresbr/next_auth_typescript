@@ -122,6 +122,15 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
 
   return (
     <form className="my-8 text-sm" onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-center text-2xl font-bold tracking-wide text-gray-800">
+        Registre-se
+      </h2>
+      <p className="text-center text-sm text-gray-600 mt-2 mb-8">
+        Você tem uma conta?
+        <Link href="/auth" className="text-bold text-blue-500 ml-1">
+          Clique aqui para entrar
+        </Link>
+      </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-3">
         <Input
           name="first_name"
