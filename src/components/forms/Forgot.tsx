@@ -6,9 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FiLock, FiMail } from "react-icons/fi";
 import SlideButton from "../buttons/RegisterSubmit";
 import { SubmitHandler } from "react-hook-form/dist/types/form";
-import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import axios from "axios";
 interface IForgotFormProps {}
@@ -39,24 +37,24 @@ const ForgotForm: React.FunctionComponent<IForgotFormProps> = (props) => {
   return (
     <div className="w-full px-12 py-4">
       <h2 className="text-center text-2xl font-bold tracking-wide text-gray-800">
-        Forgot password
+        Recuperação de senha
       </h2>
       <p className="text-center text-sm text-gray-600 mt-2">
-        Sign in instead &nbsp;
         <Link
           href="/auth"
           className="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer"
         >
-          Sign in
+          Clique aqui
         </Link>
+        &nbsp;para fazer login
       </p>
       <form className="my-8 text-sm" onSubmit={handleSubmit(onSubmit)}>
         <Input
           name="email"
-          label="Email address"
+          label="Email"
           type="text"
           icon={<FiMail />}
-          placeholder="example@emaple.com"
+          placeholder="joao@emaple.com"
           register={register}
           error={errors?.email?.message}
           disabled={isSubmitting}
@@ -64,7 +62,7 @@ const ForgotForm: React.FunctionComponent<IForgotFormProps> = (props) => {
 
         <SlideButton
           type="submit"
-          text="Send email"
+          text="Recuperar"
           slide_text="Secure"
           icon={<FiLock />}
           disabled={isSubmitting}
