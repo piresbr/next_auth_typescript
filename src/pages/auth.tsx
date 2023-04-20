@@ -1,3 +1,4 @@
+import SocialButton from "@/components/buttons/SocialButtons";
 import LoginForm from "@/components/forms/Login";
 import RegisterForm from "@/components/forms/Register";
 import { NextPageContext } from "next";
@@ -26,6 +27,28 @@ export default function auth({
               ) : (
                 <RegisterForm />
               )}
+              <div className="w-full flex items-center justify-between px-12">
+                <div className="w-full h-[1px] bg-gray-300"></div>
+                <span className="text-sm uppercase mx-6 text-gray-400">OU</span>
+                <div className="w-full h-[1px] bg-gray-300"></div>
+              </div>
+              <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-2">
+                {providers.map((provider: any) => {
+                  if (provider.name == "Credentials") return;
+                  return (
+                    <SocialButton
+                      key={provider.id}
+                      id={provider.id}
+                      text={
+                        tab == "signup"
+                          ? `Entre com ${provider.name}`
+                          : `Entre com ${provider.name}`
+                      }
+                      csrfToken={csrfToken}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
