@@ -70,8 +70,10 @@ export default async function handler(
       id: newuser._id.toString(),
     });
 
+    //passo um token para a url. Esse token será referenciado ao id do novo usuario em pages/activate/[token].tsx
     const url = `${process.env.NEXTAUTH_URL}/activate/${activationToken}`;
 
+    //envio do email ao usuario cadastrado
     await sendMail(
       newuser.email,
       newuser.name,

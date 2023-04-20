@@ -40,7 +40,9 @@ export default async function sendMail(
     email_link: url,
     image: image,
   };
+
   const html = data(replacments);
+
   //------------verify connection config
   await new Promise((resolve, reject) => {
     transporter.verify((error, success) => {
@@ -53,6 +55,7 @@ export default async function sendMail(
       }
     });
   });
+
   //send email
   const options = {
     from: MAILING_EMAIL,
@@ -60,6 +63,7 @@ export default async function sendMail(
     subject,
     html,
   };
+
   await new Promise((resolve, reject) => {
     transporter.sendMail(options, (err, info) => {
       if (err) {
