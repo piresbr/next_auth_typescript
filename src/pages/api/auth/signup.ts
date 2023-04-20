@@ -5,6 +5,9 @@ import validator from "validator";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { Error } from "mongoose";
+import { createActivationToken } from "@/utils/tokens";
+import sendMail from "@/utils/sendMail";
+import { activateTemplateEmail } from "@/emailTemplates/activate";
 
 export default async function handler(
   req: NextApiRequest,
@@ -49,14 +52,35 @@ export default async function handler(
         .status(400)
         .json({ message: "A senha precisa ter no mínimo 6 caracteres" });
     }
+
     const cryptedPassword = await bcrypt.hash(password, 12);
-    const newUser = await new User({
+
+    //envia pro banco de dados
+    const newuser = await new User({
       name: `${first_name} ${last_name} `,
       email,
       phone,
       password: cryptedPassword,
     });
-    await newUser.save();
+
+    await newuser.save();
+
+    //email de ativação
+    const activationToken = createActivationToken({
+      id: newuser._id.toString(),
+    });
+
+    const url = `${process.env.NEXTAUTH_URL}/activate/${activationToken}`;
+
+    await sendMail(
+      newuser.email,
+      newuser.name,
+      "",
+      url,
+      "Ative sua conta - Next auth",
+      activateTemplateEmail
+    );
+
     res.json({
       message:
         "Cadastro realizado com sucesso! Acesse seu email e ative sua conta para iniciar! ",
