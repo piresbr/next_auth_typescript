@@ -121,7 +121,7 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
   }, [watch().password]);
 
   return (
-    <form className="my-8 text-sm" onSubmit={handleSubmit(onSubmit)}>
+    <form className="mb-8 text-sm" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="text-center text-2xl font-bold tracking-wide text-gray-800">
         Registre-se
       </h2>

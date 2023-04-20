@@ -56,7 +56,7 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
 
   return (
     <form
-      className="my-8 text-sm"
+      className="mb-8 text-sm"
       method="post"
       action="/api/auth/signin/email"
       onSubmit={handleSubmit(onSubmit)}
