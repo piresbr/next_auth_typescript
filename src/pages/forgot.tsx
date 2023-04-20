@@ -1,7 +1,4 @@
-import SocialButton from "@/components/buttons/SocialButtons";
 import ForgotForm from "@/components/forms/Forgot";
-import LoginForm from "@/components/forms/Login";
-import RegisterForm from "@/components/forms/Register";
 import { NextPageContext } from "next";
 import { getCsrfToken, getProviders } from "next-auth/react";
 

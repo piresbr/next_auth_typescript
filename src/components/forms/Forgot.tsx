@@ -11,7 +11,7 @@ import Link from "next/link";
 import axios from "axios";
 interface IForgotFormProps {}
 const FormSchema = z.object({
-  email: z.string().email("Por favor insira um email válido."),
+  email: z.string().email("Por favor entre com um email válido. "),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
