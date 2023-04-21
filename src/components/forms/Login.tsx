@@ -95,6 +95,10 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
           error={errors?.password?.message}
           disabled={isSubmitting}
         />
+
+        <Link href="/forgot" className="text-blue-500 hover:text-blue-700">
+          Esqueci a senha
+        </Link>
       </div>
 
       <LoginSubmit
