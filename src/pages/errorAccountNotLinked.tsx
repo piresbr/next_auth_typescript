@@ -17,10 +17,7 @@ export default function error() {
                 Esse email ja foi utilizado por alguns de nossos provedores de
                 login. Utilize o mesmo email, porém com algum outro provedor
                 disponível.
-                <Link
-                  className="text-bold text-blue-500 ml-1"
-                  href="?tab=signup"
-                >
+                <Link className="text-bold text-blue-500 ml-1" href="/auth">
                   Clique aqui para tentar realizar o login novamente.
                 </Link>
               </p>
