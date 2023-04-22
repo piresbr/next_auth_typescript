@@ -17,15 +17,16 @@ export default function auth({
   csrfToken: string;
   providers: any;
 }) {
-  const { push, pathname } = useRouter();
+  const { push } = useRouter();
 
-  if (
-    callbackUrl.includes("OAuthAccountNotLinked") &&
-    pathname.includes("OAuthAccountNotLinked")
-  ) {
-    useEffect(() => {
-      push("/errorAccountNotLinked");
-    }, []);
+  if (typeof window !== "undefined") {
+    const hostname = window.location.search;
+
+    if (hostname.includes("OAuthAccountNotLinked")) {
+      useEffect(() => {
+        push("/errorAccountNotLinked");
+      }, []);
+    }
   }
 
   return (
@@ -76,7 +77,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
   const callbackUrl = query.callbackUrl
     ? query.callbackUrl
     : process.env.NEXTAUTH_URL;
-  console.log(callbackUrl);
+  // console.log(callbackUrl);
 
   const csrfToken = await getCsrfToken(ctx);
   const providers = await getProviders();
