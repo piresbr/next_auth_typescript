@@ -1,7 +1,7 @@
 import ResetForm from "@/components/forms/Reset";
 import { NextPageContext } from "next";
 
-export default function reset({ token }: { token: string }) {
+export default function Reset({ token }: { token: string }) {
   return (
     <div className="w-full flex items-center justify-center">
       <div className="w-full min-h-screen flex items-center justify-center bg-slate-100">

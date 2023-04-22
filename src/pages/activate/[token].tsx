@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 //token retornado pelo getServerSideProps abaixo
-export default function activate({ token }: { token: string }) {
+export default function Activate({ token }: { token: string }) {
   const [error, setError] = useState("");
   const [success, setSucess] = useState("");
 
