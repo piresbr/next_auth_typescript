@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useSession, signOut, getSession } from "next-auth/react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { AiFillGithub } from "react-icons/ai";
+import Link from "next/link";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -56,44 +57,44 @@ export default function Home() {
                   <p className="font-bold text-xs">{text}</p>
                   <div className="mt-6 flex items-center justify-center gap-2">
                     Acesse o código fonte: &nbsp;
-                    <a
+                    <Link
                       href="https://github.com/piresbr/next_auth_typescript"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-4xl"
                     >
                       <AiFillGithub />
-                    </a>
+                    </Link>
                   </div>
                   <div className="flex justify-center gap-4  mt-4 pt-6 text-3xl ">
-                    <a
+                    <Link
                       href="https://github.com/piresbr/"
                       target="_blank"
                       className="hover:scale-[1.1] transition ease-in-out"
                     >
                       <AiFillGithub />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="https://www.instagram.com/pires.br/"
                       target="_blank"
                       className="hover:scale-[1.1] transition ease-in-out"
                     >
                       <FaInstagram />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="https://www.linkedin.com/in/bruno-pires-de-oliveira/"
                       target="_blank"
                       className="hover:scale-[1.1] transition ease-in-out"
                     >
                       <FaLinkedin />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="https://www.facebook.com/profile.php?id=100021352578761"
                       target="_blank"
                       className="hover:scale-[1.1] transition ease-in-out"
                     >
                       <FaFacebook />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
