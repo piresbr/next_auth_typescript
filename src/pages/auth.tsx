@@ -5,7 +5,6 @@ import { NextPageContext } from "next";
 import { getCsrfToken, getProviders } from "next-auth/react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import Router from "next/router";
 
 export default function auth({
   tab,
@@ -26,7 +25,6 @@ export default function auth({
   ) {
     useEffect(() => {
       push("/errorAccountNotLinked");
-      Router.push("/errorAccountNotLinked");
     }, []);
   }
 
