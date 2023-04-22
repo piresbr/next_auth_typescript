@@ -1,8 +1,8 @@
 import NextAuth, { Account, Profile, User } from "next-auth";
-import FacebookProvider from "next-auth/providers/facebook";
+// import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import Auth0Provider from "next-auth/providers/auth0";
+// import Auth0Provider from "next-auth/providers/auth0";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectDb from "@/utils/connectDb";
 import UserModal from "@/models/User";
