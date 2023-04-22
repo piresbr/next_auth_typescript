@@ -28,12 +28,6 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  if (pathname.includes("OAuthAccountNotLinked")) {
-    return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_URL}/errorAccountNotLinked`
-    );
-  }
-
   if (pathname == "/auth") {
     //se for autenticado, local e ve as informações
     if (session) {

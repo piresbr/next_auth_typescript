@@ -63,6 +63,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
   const callbackUrl = query.callbackUrl
     ? query.callbackUrl
     : process.env.NEXTAUTH_URL;
+  console.log(callbackUrl);
 
   const csrfToken = await getCsrfToken(ctx);
   const providers = await getProviders();
