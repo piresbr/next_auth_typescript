@@ -3,6 +3,8 @@ import LoginForm from "@/components/forms/Login";
 import RegisterForm from "@/components/forms/Register";
 import { NextPageContext } from "next";
 import { getCsrfToken, getProviders } from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function auth({
   tab,
@@ -15,6 +17,13 @@ export default function auth({
   csrfToken: string;
   providers: any;
 }) {
+  const { push } = useRouter();
+  if (callbackUrl.includes("OAuthAccountNotLinked")) {
+    useEffect(() => {
+      push("/errorAccountNotLinked");
+    }, []);
+  }
+
   return (
     <div className="w-full flex items-center justify-center">
       <div className="w-full min-h-screen flex items-center justify-center bg-slate-100">

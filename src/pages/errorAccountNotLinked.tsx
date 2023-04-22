@@ -1,4 +1,6 @@
+import { NextPageContext } from "next";
 import Link from "next/link";
+import { useSession, getSession } from "next-auth/react";
 
 export default function error() {
   return (
