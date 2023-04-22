@@ -61,7 +61,7 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
       action="/api/auth/signin/email"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h2 className="text-center text-2xl font-bold tracking-wide text-gray-800">
+      <h2 className="text-center text-2xl font-bold tracking-wide text-gray-900">
         Faça seu login
       </h2>
       <p className="text-center text-sm text-gray-600 mt-2 mb-8">
