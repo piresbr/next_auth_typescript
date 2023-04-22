@@ -29,9 +29,11 @@ export async function middleware(req: NextRequest) {
   }
 
   if (pathname == "OAuthAccountNotLinked") {
-    return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_URL}/errorAccountNotLinked`
-    );
+    if (!session) {
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_URL}/errorAccountNotLinked`
+      );
+    }
   }
 
   if (pathname == "/auth") {
