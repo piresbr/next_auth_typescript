@@ -39,8 +39,7 @@ export default async function handler(
     await User.findByIdAndUpdate(userDb.id, { emailVerified: true });
 
     res.json({
-      message:
-        "Cadastro realizado com sucesso! Acesse seu email e ative sua conta para iniciar! ",
+      message: `Conta ja foi ativada com sucesso. Realize o login para continuar `,
     });
   } catch (error: any) {
     res.status(500).json({

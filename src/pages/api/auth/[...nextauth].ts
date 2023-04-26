@@ -39,6 +39,9 @@ export default NextAuth({
         if (!isPasswordCorrect) {
           throw new Error("Senha incorreta. ");
         }
+        if (user.emailVerified === false) {
+          throw new Error("Por favor verifique seu email e ative sua conta. ");
+        }
         return user;
       },
     }),
