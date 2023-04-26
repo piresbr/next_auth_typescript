@@ -13,6 +13,7 @@ import RegisterSubmit from "../buttons/RegisterSubmit";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 interface IRegisterProps {}
 
@@ -67,6 +68,7 @@ type FormSchemaProps = z.infer<typeof FormSchema>;
 
 const Register: React.FunctionComponent<IRegisterProps> = (props) => {
   const [passwordScore, setPasswordScore] = React.useState(0);
+  const router = useRouter();
 
   const {
     register,
@@ -82,7 +84,7 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
 
       toast.success(data.message, {
         position: "top-center",
-        autoClose: 6000,
+        autoClose: 3500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -91,11 +93,14 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
         theme: "light",
       });
 
+      await new Promise((data) => setTimeout(data, 4000));
+      router.push("/auth");
+
       return values;
     } catch (error: any) {
-      toast.error(error.response.data.message, {
+      toast.error(error?.response?.data.message, {
         position: "top-center",
-        autoClose: 6000,
+        autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

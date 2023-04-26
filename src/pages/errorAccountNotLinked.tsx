@@ -15,8 +15,8 @@ export default function error() {
               </h2>
               <p className="text-center text-sm text-gray-600 mt-2 mb-8">
                 Esse email ja foi utilizado por alguns de nossos provedores de
-                login. Utilize o mesmo email, porém com algum outro provedor
-                disponível.
+                login. Caso queira, você pode tentar fazer o login com os mesmo
+                dados, porém em algum outro provedor disponível.
                 <Link className="text-bold text-blue-500 ml-1" href="/auth">
                   Clique aqui para tentar realizar o login novamente.
                 </Link>
