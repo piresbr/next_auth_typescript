@@ -32,14 +32,14 @@ export default async function handler(
         .status(400)
         .json({ message: "Esta conta não foi encontrada. " });
     }
-    if (userDb.emailVerified == true) {
+    if (userDb.emailVerified == false) {
       return res.status(400).json({ message: "Conta verificada. " });
     }
 
     await User.findByIdAndUpdate(userDb.id, { emailVerified: true });
 
     res.json({
-      message: `Conta ja foi ativada com sucesso. Realize o login para continuar `,
+      message: `Conta foi ativada com sucesso. Realize o login para continuar `,
     });
   } catch (error: any) {
     res.status(500).json({
