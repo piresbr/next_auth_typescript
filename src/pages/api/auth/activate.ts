@@ -27,11 +27,13 @@ export default async function handler(
 
     // console.log(token);
     const userDb = await User.findById(userToken.id);
+
     if (!userDb) {
       return res
         .status(400)
         .json({ message: "Esta conta não foi encontrada. " });
     }
+
     if (userDb.emailVerified == false) {
       await User.findByIdAndUpdate(userDb.id, { emailVerified: true });
       return res.status(400).json({ message: "Conta verificada. " });
