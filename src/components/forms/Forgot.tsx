@@ -12,9 +12,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-interface IForgotFormProps {
-  token: string;
-}
+interface IForgotFormProps {}
 
 const FormSchema = z.object({
   email: z.string().email("Por favor entre com um email válido. "),
@@ -22,7 +20,6 @@ const FormSchema = z.object({
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 const ForgotForm: React.FunctionComponent<IForgotFormProps> = (props) => {
-  // const { token } = props;
   const router = useRouter();
   const {
     register,
@@ -35,7 +32,6 @@ const ForgotForm: React.FunctionComponent<IForgotFormProps> = (props) => {
     try {
       const { data } = await axios.post("/api/auth/forgot", {
         email: values.email,
-        // token,
       });
 
       toast.success(data.message, {
