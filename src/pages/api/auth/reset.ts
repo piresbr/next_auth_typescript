@@ -32,11 +32,6 @@ export default async function handler(
     res.json({
       message: "Senha alterada com sucesso. Volte e faça o login. ",
     });
-
-    const router = useRouter();
-    setTimeout(() => {
-      router.push("/auth");
-    }, 5500);
   } catch (error) {
     res.status(500).json({ message: (error as Error).message });
   }

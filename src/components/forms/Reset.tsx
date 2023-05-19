@@ -1,16 +1,19 @@
 import * as React from "react";
 import Input from "../inputs/Input";
+
 import { CiLock } from "react-icons/ci";
 import { FiLock } from "react-icons/fi";
+
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import RegisterSubmit from "../buttons/RegisterSubmit";
 import axios from "axios";
+import { useRouter } from "next/router";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useRouter } from "next/router";
 
 interface IResetFormProps {
   token: string;
@@ -22,7 +25,7 @@ const FormSchema = z
     password: z
       .string()
       .min(6, "A senha tem que ter no mínimo 6 caracteres")
-      .max(52, "A senha tem que ter no mínimo 6 caracteres"),
+      .max(52, "A senha tem que ter no máximo 52 caracteres"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -40,6 +43,7 @@ const ResetForm: React.FunctionComponent<IResetFormProps> = (props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaProps>({
     resolver: zodResolver(FormSchema),
@@ -51,6 +55,7 @@ const ResetForm: React.FunctionComponent<IResetFormProps> = (props) => {
         token,
       });
 
+      reset();
       toast.success(data.message, {
         position: "top-center",
         autoClose: 6000,
@@ -62,12 +67,8 @@ const ResetForm: React.FunctionComponent<IResetFormProps> = (props) => {
         theme: "light",
       });
 
-      await new Promise((data) => setTimeout(data, 6500));
+      await new Promise((values) => setTimeout(values, 6500));
       router.push("/auth");
-
-      console.log("oi");
-
-      return values;
     } catch (error: any) {
       toast.error(error.response.data.message, {
         position: "top-center",
