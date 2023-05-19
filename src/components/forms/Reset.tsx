@@ -10,6 +10,7 @@ import RegisterSubmit from "../buttons/RegisterSubmit";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 interface IResetFormProps {
   token: string;
@@ -34,6 +35,7 @@ type FormSchemaProps = z.infer<typeof FormSchema>;
 
 const ResetForm: React.FunctionComponent<IResetFormProps> = (props) => {
   const { token } = props;
+  const router = useRouter();
 
   const {
     register,
@@ -60,6 +62,9 @@ const ResetForm: React.FunctionComponent<IResetFormProps> = (props) => {
         progress: undefined,
         theme: "light",
       });
+
+      await new Promise((data) => setTimeout(data, 6500));
+      router.push("/auth");
 
       return values;
     } catch (error: any) {

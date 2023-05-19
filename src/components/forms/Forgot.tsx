@@ -10,8 +10,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/router";
 
-interface IForgotFormProps {}
+interface IForgotFormProps {
+  token: string;
+}
 
 const FormSchema = z.object({
   email: z.string().email("Por favor entre com um email válido. "),
@@ -19,6 +22,8 @@ const FormSchema = z.object({
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 const ForgotForm: React.FunctionComponent<IForgotFormProps> = (props) => {
+  // const { token } = props;
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -30,10 +35,37 @@ const ForgotForm: React.FunctionComponent<IForgotFormProps> = (props) => {
     try {
       const { data } = await axios.post("/api/auth/forgot", {
         email: values.email,
+        // token,
       });
-      toast.success(data.message);
+
+      toast.success(data.message, {
+        position: "top-center",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      await new Promise((data) => setTimeout(data, 6500));
+      router.push("/auth");
+
+      return values;
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message, {
+        position: "top-center",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      return false;
     }
   };
 
