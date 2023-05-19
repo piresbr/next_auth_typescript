@@ -40,7 +40,6 @@ const ResetForm: React.FunctionComponent<IResetFormProps> = (props) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaProps>({
     resolver: zodResolver(FormSchema),
@@ -65,6 +64,8 @@ const ResetForm: React.FunctionComponent<IResetFormProps> = (props) => {
 
       await new Promise((data) => setTimeout(data, 6500));
       router.push("/auth");
+
+      console.log("oi");
 
       return values;
     } catch (error: any) {
